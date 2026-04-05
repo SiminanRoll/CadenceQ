@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CadenceQ | Focus today. Qualify faster.</title>
+  <meta name="description" content="CadenceQ helps field sales teams stay focused on the right next action, follow a clean cadence, and move qualified opportunities forward faster." />
+  <style>
+    :root {
+      --bg: #06142b;
+      --bg-soft: #0b1f41;
+      --panel: rgba(16, 39, 79, 0.88);
+      --panel-2: rgba(12, 30, 61, 0.92);
+      --line: rgba(109, 154, 222, 0.18);
+      --text: #f4f8ff;
+      --muted: #a9bad8;
+      --blue: #1ea1ff;
+      --blue-soft: #5bb8ff;
+      --green: #9adb1f;
+      --green-2: #58d24e;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius: 26px;
+      --radius-sm: 18px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(30, 161, 255, 0.15), transparent 28%),
+        radial-gradient(circle at top right, rgba(154, 219, 31, 0.12), transparent 25%),
+        linear-gradient(180deg, #041126 0%, #071830 42%, #051327 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(5, 17, 38, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: 1.5rem;
+    }
+
+    .logo {
+      position: relative;
+      width: 68px;
+      height: 38px;
+    }
+
+    .logo span {
+      position: absolute;
+      inset: 0;
+      border: 7px solid;
+      border-radius: 999px;
+      width: 30px;
+      height: 30px;
+      top: 4px;
+      transform: rotate(-6deg);
+    }
+
+    .logo .c1 {
+      left: 0;
+      border-color: var(--blue);
+      border-right-color: transparent;
+    }
+
+    .logo .c2 {
+      left: 18px;
+      border-color: var(--blue-soft);
+      border-right-color: transparent;
+      opacity: 0.96;
+    }
+
+    .logo .q {
+      left: 36px;
+      border-color: var(--green);
+    }
+
+    .logo .q::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 7px;
+      background: var(--green);
+      right: -8px;
+      bottom: -1px;
+      clip-path: polygon(0 50%, 76% 0, 76% 28%, 100% 28%, 100% 72%, 76% 72%, 76% 100%);
+      transform: rotate(22deg);
+      border-radius: 4px;
+    }
+
+    .brand b { color: var(--green); font-weight: 800; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 22px;
+      border-radius: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.22);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green-2), var(--green));
+      color: #06220f;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.02);
+      border-color: rgba(109, 154, 222, 0.22);
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 68px 0 36px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(20, 48, 94, 0.9);
+      border: 1px solid rgba(109, 154, 222, 0.22);
+      color: #d8e8ff;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 0 6px rgba(154, 219, 31, 0.12);
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 5.3rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      margin: 20px 0 18px;
+      max-width: 10ch;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.15rem;
+      line-height: 1.72;
+      max-width: 58ch;
+      margin: 0 0 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      max-width: 640px;
+    }
+
+    .stat {
+      background: linear-gradient(180deg, rgba(18, 42, 84, 0.9), rgba(10, 27, 56, 0.95));
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.7rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 6px;
+    }
+
+    .stat span { color: var(--muted); font-weight: 600; font-size: 0.95rem; }
+
+    .app-shot {
+      background: linear-gradient(180deg, rgba(15, 38, 79, 0.9), rgba(10, 24, 50, 0.96));
+      border: 1px solid rgba(126, 170, 238, 0.18);
+      border-radius: 30px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-shot::before {
+      content: "";
+      position: absolute;
+      inset: auto auto -60px -50px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(30, 161, 255, 0.2), transparent 68%);
+      pointer-events: none;
+    }
+
+    .window-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .window-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #dde9ff;
+      font-weight: 800;
+    }
+
+    .window-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(122, 164, 228, 0.18);
+      color: #dbe7ff;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: 0.86fr 1.14fr;
+      gap: 16px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(24, 54, 108, 0.72), rgba(12, 29, 58, 0.95));
+      border: 1px solid rgba(122, 164, 228, 0.15);
+      border-radius: 24px;
+      padding: 16px;
+    }
+
+    .panel h3 {
+      margin: 0 0 14px;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #b9cae7;
+    }
+
+    .company-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .company-card {
+      border-radius: 20px;
+      border: 1px solid rgba(93, 146, 227, 0.22);
+      background: rgba(5, 21, 47, 0.6);
+      padding: 14px;
+    }
+
+    .company-card.active { outline: 2px solid rgba(30, 161, 255, 0.68); }
+
+    .company-card strong,
+    .detail-header strong {
+      display: block;
+      font-size: 1.1rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
+    .meta, .detail-sub {
+      color: #a8bddf;
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-top: 10px;
+      background: rgba(30, 161, 255, 0.1);
+      border: 1px solid rgba(30, 161, 255, 0.2);
+      color: #dbe9ff;
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .detail-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .detail-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(9, 27, 56, 0.55);
+      border: 1px solid rgba(122, 164, 228, 0.14);
+    }
+
+    .badge-stack {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .mini-card {
+      min-width: 132px;
+      text-align: center;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(122, 164, 228, 0.18);
+      color: #dce9ff;
+      font-weight: 800;
+    }
+
+    .mini-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .action-pill {
+      background: rgba(14, 44, 89, 0.95);
+      border: 1px solid rgba(30, 161, 255, 0.22);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-weight: 700;
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.75;
+    }
+
+    .feature-grid,
+    .steps,
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(18, 42, 84, 0.84), rgba(10, 27, 56, 0.96));
+      border: 1px solid rgba(122, 164, 228, 0.14);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: inline-grid;
+      place-items: center;
+      margin-bottom: 16px;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, rgba(30, 161, 255, 0.16), rgba(154, 219, 31, 0.18));
+      border: 1px solid rgba(122, 164, 228, 0.16);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    .step-num {
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      align-items: center;
+      justify-content: center;
+      background: rgba(154, 219, 31, 0.14);
+      color: var(--green);
+      font-weight: 900;
+      margin-bottom: 16px;
+      border: 1px solid rgba(154, 219, 31, 0.2);
+    }
+
+    .quote {
+      background: linear-gradient(180deg, rgba(21, 48, 98, 0.9), rgba(10, 24, 48, 0.96));
+      border: 1px solid rgba(122, 164, 228, 0.15);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .quote p {
+      margin: 0 0 14px;
+      font-size: 1.35rem;
+      line-height: 1.65;
+      letter-spacing: -0.02em;
+    }
+
+    .quote span {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .cta {
+      padding: 24px 0 72px;
+    }
+
+    .cta-box {
+      display: grid;
+      grid-template-columns: 1.1fr auto;
+      align-items: center;
+      gap: 18px;
+      padding: 28px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(20, 56, 110, 0.94), rgba(13, 30, 58, 0.98));
+      border: 1px solid rgba(122, 164, 228, 0.18);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box h2 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.05em;
+      line-height: 1.02;
+    }
+
+    .cta-box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.04rem;
+      line-height: 1.7;
+      max-width: 58ch;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 20px 0 40px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.96rem;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .app-grid,
+      .feature-grid,
+      .steps,
+      .pricing-grid,
+      .cta-box {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-box {
+        grid-template-columns: 1fr;
+      }
+
+      .badge-stack {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav { padding: 14px 0; }
+      .nav-links { display: none; }
+      .hero { padding-top: 40px; }
+      .stats { grid-template-columns: 1fr; }
+      h1 { max-width: none; }
+      .detail-header { flex-direction: column; }
+      .cta { padding-bottom: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="CadenceQ home">
+        <span class="logo" aria-hidden="true">
+          <span class="c1"></span>
+          <span class="c2"></span>
+          <span class="q"></span>
+        </span>
+        <span>Cadence<b>Q</b></span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#workflow">How it works</a>
+        <a href="#preview">Preview</a>
+        <a href="#pricing">Why it works</a>
+        <a class="btn btn-primary" href="#cta">Book a demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Sales cadence, without the clutter</span>
+          <h1>Focus today. Qualify faster.</h1>
+          <p>
+            CadenceQ keeps field reps locked in on the next best action, helps teams follow a clean touch pattern,
+            and makes it easy to move real opportunities forward once a prospect is ready for the next stage.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#cta">See CadenceQ in action</a>
+            <a class="btn btn-secondary" href="#preview">View product preview</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <strong>Today’s Queue</strong>
+              <span>Simple task flow that keeps reps moving instead of hunting for what to do next.</span>
+            </div>
+            <div class="stat">
+              <strong>Clear handoff</strong>
+              <span>Once qualified, the opportunity exits cadence cleanly and is ready for the next owner.</span>
+            </div>
+            <div class="stat">
+              <strong>Better consistency</strong>
+              <span>One system for follow-up rhythm, next steps, and rep accountability.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-shot" id="preview">
+          <div class="window-top">
+            <div class="window-brand">
+              <span class="logo" aria-hidden="true" style="transform:scale(.72); transform-origin:left center; width:50px;">
+                <span class="c1"></span>
+                <span class="c2"></span>
+                <span class="q"></span>
+              </span>
+              <span>Patric's Prospects</span>
+            </div>
+            <div class="window-badges">
+              <span class="pill">71 pts</span>
+              <span class="pill">29 tasks</span>
+              <span class="pill">11 touches</span>
+            </div>
+          </div>
+
+          <div class="app-grid">
+            <div class="panel">
+              <h3>Technology Consultant</h3>
+              <div class="company-list">
+                <div class="company-card active">
+                  <strong>Dozier Law Firm, LLC</strong>
+                  <div class="meta">Primary: Kevin Bryant<br>Status: Active Outreach<br>Due: Apr 4</div>
+                  <span class="status-chip">Active Outreach</span>
+                </div>
+                <div class="company-card">
+                  <strong>Latimer LeVay Fyock LLC</strong>
+                  <div class="meta">Primary: Debbie Maguire<br>Status: Active Outreach<br>Due: Apr 6</div>
+                  <span class="status-chip">Follow-up</span>
+                </div>
+                <div class="company-card">
+                  <strong>McKeen &amp; Associates</strong>
+                  <div class="meta">Primary: Mark Hendrixson<br>Status: Research<br>Priority: Cold</div>
+                  <span class="status-chip">Untouched</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="detail-header">
+                <div>
+                  <strong>Company Detail</strong>
+                  <div class="detail-sub">One place to see the contact, current touch, status, priority, due date, and next move.</div>
+                </div>
+                <div class="badge-stack">
+                  <div class="mini-card"><small>Template</small>3 - Email</div>
+                  <div class="mini-card"><small>Status</small>Follow</div>
+                  <div class="mini-card"><small>Due</small>Apr 4</div>
+                </div>
+              </div>
+              <div class="detail-box">
+                <div>
+                  <strong style="font-size:1.65rem; margin-bottom:10px;">Kevin Bryant</strong>
+                  <div class="detail-sub">
+                    kevin@dozierlaw.com • +1 478-742-8441<br>
+                    487 Cherry St Ste 100, Macon, Georgia 31201
+                  </div>
+                  <div class="action-row">
+                    <span class="action-pill">Focus</span>
+                    <span class="action-pill">Email</span>
+                    <span class="action-pill">Legal</span>
+                  </div>
+                </div>
+                <div class="mini-card" style="min-width:150px; padding:18px 16px;">
+                  <small>13-Touch Pattern</small>
+                  Expand to see full cadence
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Built for real prospecting work</h2>
+          <p>
+            CadenceQ is designed around the way reps actually move accounts forward. Not bloated CRM busywork. Not a messy task list. Just the right workflow, at the right time, with the right next step in front of you.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article class="card">
+            <div class="icon">🎯</div>
+            <h3>Today’s focus</h3>
+            <p>See exactly who needs attention now, which touch is next, and what action should happen today without bouncing between screens.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🔁</div>
+            <h3>Cadence that stays clean</h3>
+            <p>Keep each company inside a structured follow-up pattern so reps stay consistent and no opportunity falls into a black hole.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🤝</div>
+            <h3>Clear sales handoff</h3>
+            <p>When a lead is qualified, set the OTA or next meeting date, remove it from active cadence, and preserve the win without muddying the queue.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>A simple rhythm your team will actually use</h2>
+          <p>
+            The point is not to add more admin work. The point is to make prospecting feel lighter, faster, and more repeatable while still giving managers the visibility they need.
+          </p>
+        </div>
+        <div class="steps">
+          <article class="card">
+            <span class="step-num">1</span>
+            <h3>Work the queue</h3>
+            <p>Reps open CadenceQ and immediately see the highest-priority actions for the day, including untouched accounts, follow-ups, and due tasks.</p>
+          </article>
+          <article class="card">
+            <span class="step-num">2</span>
+            <h3>Complete the touch</h3>
+            <p>Each activity maps to the current stage in the cadence so the next move is obvious. No guessing. No reinventing the process.</p>
+          </article>
+          <article class="card">
+            <span class="step-num">3</span>
+            <h3>Advance or hand off</h3>
+            <p>Once the account is engaged and ready, schedule the next milestone, mark the outcome, and move it out of active follow-up the clean way.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Why teams like this approach</h2>
+          <p>
+            CadenceQ gives structure without suffocating the rep. It creates accountability without turning the day into reporting theater.
+          </p>
+        </div>
+        <div class="pricing-grid">
+          <article class="card">
+            <div class="icon">⚡</div>
+            <h3>Less friction</h3>
+            <p>Reps spend less time deciding what to do and more time moving accounts toward a real conversation.</p>
+          </article>
+          <article class="card">
+            <div class="icon">📋</div>
+            <h3>Better visibility</h3>
+            <p>Managers can see where accounts sit in the rhythm, what is overdue, and where momentum is building.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🏁</div>
+            <h3>Cleaner wins</h3>
+            <p>Qualified opportunities exit follow-up the right way, which keeps the active list focused and the reporting cleaner.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="quote">
+          <p>CadenceQ is built for teams that want more consistency in the field without making prospecting feel like homework.</p>
+          <span>Modern workflow. Clear next actions. Better follow-through.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="cta">
+      <div class="wrap">
+        <div class="cta-box">
+          <div>
+            <h2>Ready to tighten up your prospecting flow?</h2>
+            <p>
+              Put every rep into a cleaner daily rhythm, make follow-up more consistent, and create a smoother path from first touch to qualified opportunity.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="mailto:hello@cadenceq.com?subject=CadenceQ%20Demo%20Request">Request a demo</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div>© 2026 CadenceQ. Focus today. Qualify faster.</div>
+      <div>Built for modern sales cadence and cleaner handoffs.</div>
+    </div>
+  </footer>
+</body>
+</html>
